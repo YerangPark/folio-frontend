@@ -247,16 +247,18 @@ const PortfolioViewPage: React.FC<{ username?: string; id: number; isPublic?: bo
                     githubLink={project.githubLink}
                     skills={categorizedProjectSkill[index]}
                   />
-                  <Box w="100%" marginRight="auto">
-                    <Button
-                      onClick={() => {
-                        setSelectedProjectMdFile(project.readmeFile)
-                        openProjectModal()
-                      }}
-                    >
-                      자세히 보기
-                    </Button>
-                  </Box>
+                  {project.readmeFile && (
+                    <Box w="100%" marginRight="auto">
+                      <Button
+                        onClick={() => {
+                          setSelectedProjectMdFile(project.readmeFile)
+                          openProjectModal()
+                        }}
+                      >
+                        자세히 보기
+                      </Button>
+                    </Box>
+                  )}
                 </Box>
               </Flex>
               <Flex wrap="wrap" gap={2} mb={4}>
