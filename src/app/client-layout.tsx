@@ -5,8 +5,6 @@ import { useEffect, useRef } from 'react'
 import { Provider, useDispatch } from 'react-redux'
 import { fetchSkills } from '@/features/skill/skillSlice'
 import store, { AppDispatch } from '@/store'
-import isTokenExpired from '@/utils/TokenExpiredChecker'
-import { useRouter } from 'next/navigation'
 import theme from '../theme'
 
 function ClientComponentWrapper({ children }: { children: React.ReactNode }) {
@@ -24,16 +22,6 @@ function ClientComponentWrapper({ children }: { children: React.ReactNode }) {
 }
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter()
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token || isTokenExpired(token)) {
-      localStorage.removeItem('token')
-      router.push('/')
-    }
-  }, [router])
-
   return (
     <Provider store={store}>
       <ClientComponentWrapper>

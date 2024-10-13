@@ -7,7 +7,7 @@ export interface DashboardProps {
   data: PortfolioBrief[]
   onHover: (portfoil: Portfolio) => void
   openDeletePortfolioModal: () => void
-  handleExport: () => void
+  handleExport: (arg: number) => void
 }
 
 export interface PortfolioBrief {
