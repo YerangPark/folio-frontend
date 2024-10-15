@@ -50,7 +50,7 @@ interface SuccessResponse {
 
 type LoginResponse = SuccessResponse | ErrorResponse
 
-const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://yrpark.duckdns.org:8080'
 
 const shake = keyframes`
   10%, 90% {

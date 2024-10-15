@@ -11,10 +11,6 @@ import { useRouter } from 'next/navigation'
 const DashboardContent: React.FC<DashboardProps> = ({ data, onHover, openDeletePortfolioModal, handleExport }) => {
   const router = useRouter()
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-  }
-
   return (
     <Box display="flex" flexWrap="wrap" gap={4} mt="4">
       {data &&
@@ -87,8 +83,7 @@ const DashboardContent: React.FC<DashboardProps> = ({ data, onHover, openDeleteP
                   variant="solid"
                   _hover={{ bg: 'blue.600' }}
                   onClick={() => {
-                    handleExport()
-                    copyToClipboard('복사할 텍스트')
+                    handleExport(portfolio.id)
                   }}
                 />
               </Box>

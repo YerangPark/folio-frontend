@@ -12,7 +12,7 @@ import DeletePortfolioModal from '../organisms/DeletePortfolioModal'
 import FadeNotification from '../organisms/FadeNotification'
 import Button from '../atoms/Button'
 
-const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://yrpark.duckdns.org:8080'
 
 const DashboardPage: React.FC = () => {
   const router = useRouter()
@@ -23,6 +23,31 @@ const DashboardPage: React.FC = () => {
   const [selectedPortfolio, setSelectedPortfolio] = useState({ id: 0, file_name: '' })
   const [notificationMessage, setNotificationMessage] = useState<string>('')
   const [showNotification, setShowNotification] = useState(false)
+  const [username, setUsername] = useState('')
+
+  const getUserInfo = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/api/user`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        mode: 'cors',
+      })
+
+      const res = await response.json()
+      if (res.success) {
+        setUsername(res.data.username)
+      } else if (response.status === 400 && res.error.code === 'USER_NOT_FOUND') {
+        console.error('유저를 찾을 수 없습니다.')
+      } else {
+        console.error('유저 정보 조회에 실패했습니다.')
+      }
+    } catch (error) {
+      console.error('에러가 발생했습니다.')
+    }
+  }
 
   const fetchPortfolioList = async () => {
     const token = localStorage.getItem('token')
@@ -78,6 +103,7 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     fetchPortfolioList()
+    getUserInfo()
   }, [])
 
   return (
@@ -106,9 +132,20 @@ const DashboardPage: React.FC = () => {
             data={portfolios}
             onHover={setSelectedPortfolio}
             openDeletePortfolioModal={openDeletePortfolioModal}
-            handleExport={() => {
-              setNotificationMessage('내보내기 링크가 복사되었습니다.')
-              setShowNotification(true)
+            handleExport={(portfolioId) => {
+              const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://yrpark.duckdns.org'
+              const publicUrl = `${baseUrl}/${username}/${portfolioId}`
+              navigator.clipboard
+                .writeText(publicUrl)
+                .then(() => {
+                  setNotificationMessage('내보내기 링크가 복사되었습니다.')
+                  setShowNotification(true)
+                })
+                .catch((err) => {
+                  console.error('링크 복사 중 오류가 발생했습니다:', err)
+                  setNotificationMessage('링크 복사 중 오류가 발생했습니다.')
+                  setShowNotification(true)
+                })
             }}
           />
         ) : (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Heading, Text, Flex, Image, VStack, Link, Icon } from '@chakra-ui/react'
+import { Box, Heading, Text, Flex, Image, VStack, Link, Icon, Button } from '@chakra-ui/react'
 import { FaGithub, FaBlog } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
@@ -9,10 +9,15 @@ import PortfolioNavBar from '../organisms/PortfolioNavBar'
 import ProjectInformation from '../organisms/ProjectInformation'
 import SkillCategories from '../organisms/SkillCategories'
 import Footer from '../organisms/Footer'
+import MarkdownModal from '../organisms/MarkdownModal'
 
-const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://yrpark.duckdns.org:8080'
 
-const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
+const PortfolioViewPage: React.FC<{ username?: string; id: number; isPublic?: boolean }> = ({
+  username,
+  id,
+  isPublic = false,
+}) => {
   const router = useRouter()
   const [portfolioData, setPortfolioData] = useState<any>(null)
   const [userData, setUserData] = useState<{ name: string; birthdate: string; email: string }>({
@@ -23,6 +28,14 @@ const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
   const reduxSkills = useSelector((state: RootState) => state.skill.skills)
   const [categorizedSkill, setCategorizedSkill] = useState<any>(null)
   const [categorizedProjectSkill, setCategorizedProjectSkill] = useState<any>([])
+  const [projectModalOpen, setProjectModalOpen] = useState(false)
+  const [selectedProjectMdFile, setSelectedProjectMdFile] = useState('')
+  const closeProjectModal = () => {
+    setProjectModalOpen(false)
+  }
+  const openProjectModal = () => {
+    setProjectModalOpen(true)
+  }
 
   const groupPortfolioSkillsByCategory = (skillIds: number[], skillDefines: any[]) => {
     return skillIds.reduce(
@@ -45,16 +58,21 @@ const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
 
   const getPortfolioData = async () => {
     const token = localStorage.getItem('token')
-    if (!token) {
+    if (!token && !isPublic) {
+      console.error('토큰이 만료되었습니다.')
       router.push('/')
       throw new Error('Token not found')
     }
 
-    const response = await fetch(`${apiUrl}/api/portfolio/${id}`, {
+    const url = isPublic ? `${apiUrl}/api/${username}/${id}` : `${apiUrl}/api/portfolio/${id}`
+    const headers: Record<string, string> = {}
+    if (!isPublic) {
+      headers.Authorization = `Bearer ${token}`
+    }
+
+    const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
     })
 
     const res = await response.json()
@@ -86,7 +104,7 @@ const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
           startDate: project.start_date ? project.start_date.split('-').slice(0, 2).join('-') : '',
           endDate: project.end_date ? project.end_date.split('-').slice(0, 2).join('-') : '',
           image: project.image ? `${apiUrl}/uploads/${project.image}` : null,
-          readmeFile: project.readme_file,
+          readmeFile: project.readme_file ? `${apiUrl}/uploads/${project.readme_file}` : null,
           skills: project.projectSkills.map((skill: any) => skill.skill_id),
         })),
       })
@@ -97,16 +115,21 @@ const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
 
   const getUserData = async () => {
     const token = localStorage.getItem('token')
-    if (!token) {
+    if (!token && !isPublic) {
+      console.error('토큰이 만료되었습니다.')
       router.push('/')
       throw new Error('Token not found')
     }
 
-    const response = await fetch(`${apiUrl}/api/user`, {
+    const url = isPublic ? `${apiUrl}/api/user/public/${username}` : `${apiUrl}/api/user`
+    const headers: Record<string, string> = {}
+    if (!isPublic) {
+      headers.Authorization = `Bearer ${token}`
+    }
+
+    const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
     })
 
     const res = await response.json()
@@ -145,12 +168,6 @@ const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
       setCategorizedProjectSkill(tmp)
     }
   }, [portfolioData])
-
-  useEffect(() => {
-    if (categorizedProjectSkill) {
-      console.log(categorizedProjectSkill)
-    }
-  }, [categorizedProjectSkill])
 
   if (!portfolioData) {
     return <Text>Loading...</Text>
@@ -230,6 +247,18 @@ const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
                     githubLink={project.githubLink}
                     skills={categorizedProjectSkill[index]}
                   />
+                  {project.readmeFile && (
+                    <Box w="100%" marginRight="auto">
+                      <Button
+                        onClick={() => {
+                          setSelectedProjectMdFile(project.readmeFile)
+                          openProjectModal()
+                        }}
+                      >
+                        자세히 보기
+                      </Button>
+                    </Box>
+                  )}
                 </Box>
               </Flex>
               <Flex wrap="wrap" gap={2} mb={4}>
@@ -242,6 +271,7 @@ const PortfolioViewPage: React.FC<{ id: number }> = ({ id }) => {
         </VStack>
       </Box>
       <Footer />
+      <MarkdownModal isOpen={projectModalOpen} onClose={closeProjectModal} mdFilePath={selectedProjectMdFile} />
     </Box>
   )
 }

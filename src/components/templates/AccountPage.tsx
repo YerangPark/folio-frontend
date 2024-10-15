@@ -10,7 +10,7 @@ import AccountForm from '../organisms/AccountForm'
 import Button from '../atoms/Button'
 import FadeNotification from '../organisms/FadeNotification'
 
-const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://yrpark.duckdns.org:8080'
 
 const AccountPage: React.FC = () => {
   const router = useRouter()

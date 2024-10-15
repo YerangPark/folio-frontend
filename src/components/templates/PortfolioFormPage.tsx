@@ -10,7 +10,7 @@ import PortfolioInputForm from '../organisms/PortfolioInputForm'
 import PortfolioInputFooter from '../molecules/PortfolioInputFooter'
 import ProjectInputForm from '../organisms/ProjectInputForm'
 
-const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://yrpark.duckdns.org:8080'
 
 interface PortfolioFormPageProps {
   id?: number
