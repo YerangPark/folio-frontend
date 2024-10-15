@@ -21,7 +21,7 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { FiPlus, FiDelete } from 'react-icons/fi'
-import { Skill, Project } from '@/types/data'
+import { Skill, ProjectInputProps } from '@/types/data'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { FaSearch } from 'react-icons/fa'
@@ -32,8 +32,8 @@ import InputDateRange from '../molecules/InputDateRange'
 import InputFile from '../molecules/InputFile'
 
 interface ProjectInputFormProps {
-  projects: Project[]
-  setProjects: React.Dispatch<React.SetStateAction<Project[]>>
+  projects: ProjectInputProps[]
+  setProjects: React.Dispatch<React.SetStateAction<ProjectInputProps[]>>
 }
 
 const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjects }) => {
@@ -75,7 +75,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
   }
 
   const handleAddProject = () => {
-    const newProject: Project = {
+    const newProject: ProjectInputProps = {
       id: projects.length + 1,
       name: '',
       description: '',

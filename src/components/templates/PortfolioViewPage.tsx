@@ -1,9 +1,11 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import { Box, Heading, Text, Flex, Image, VStack, Link, Icon, Button } from '@chakra-ui/react'
 import { FaGithub, FaBlog } from 'react-icons/fa'
-import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
+import { PortfolioViewPageProps } from '@/types/data'
 import PortfolioMainImageText from '../organisms/PortfolioMainImageText'
 import PortfolioNavBar from '../organisms/PortfolioNavBar'
 import ProjectInformation from '../organisms/ProjectInformation'
@@ -11,32 +13,7 @@ import SkillCategories from '../organisms/SkillCategories'
 import Footer from '../organisms/Footer'
 import MarkdownModal from '../organisms/MarkdownModal'
 
-const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://yrpark.duckdns.org:8080'
-
-const PortfolioViewPage: React.FC<{ username?: string; id: number; isPublic?: boolean }> = ({
-  username,
-  id,
-  isPublic = false,
-}) => {
-  const router = useRouter()
-  const [portfolioData, setPortfolioData] = useState<any>(null)
-  const [userData, setUserData] = useState<{ name: string; birthdate: string; email: string }>({
-    name: '',
-    birthdate: '',
-    email: '',
-  })
-  const reduxSkills = useSelector((state: RootState) => state.skill.skills)
-  const [categorizedSkill, setCategorizedSkill] = useState<any>(null)
-  const [categorizedProjectSkill, setCategorizedProjectSkill] = useState<any>([])
-  const [projectModalOpen, setProjectModalOpen] = useState(false)
-  const [selectedProjectMdFile, setSelectedProjectMdFile] = useState('')
-  const closeProjectModal = () => {
-    setProjectModalOpen(false)
-  }
-  const openProjectModal = () => {
-    setProjectModalOpen(true)
-  }
-
+const PortfolioViewPage: React.FC<PortfolioViewPageProps> = ({ portfolioData, userData }) => {
   const groupPortfolioSkillsByCategory = (skillIds: number[], skillDefines: any[]) => {
     return skillIds.reduce(
       (acc, skillId) => {
@@ -56,108 +33,17 @@ const PortfolioViewPage: React.FC<{ username?: string; id: number; isPublic?: bo
     )
   }
 
-  const getPortfolioData = async () => {
-    const token = localStorage.getItem('token')
-    if (!token && !isPublic) {
-      console.error('토큰이 만료되었습니다.')
-      router.push('/')
-      throw new Error('Token not found')
-    }
-
-    const url = isPublic ? `${apiUrl}/api/${username}/${id}` : `${apiUrl}/api/portfolio/${id}`
-    const headers: Record<string, string> = {}
-    if (!isPublic) {
-      headers.Authorization = `Bearer ${token}`
-    }
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers,
-    })
-
-    const res = await response.json()
-    if (response.status === 401) {
-      console.error('토큰이 만료되었습니다.')
-      localStorage.removeItem('token')
-      router.push('/')
-    }
-
-    if (response.ok) {
-      const portfolio = res.data
-
-      // API에서 얻은 데이터를 포트폴리오 state에 저장
-      setPortfolioData({
-        portfolioName: portfolio.file_name,
-        title: portfolio.title,
-        description: portfolio.description,
-        githubLink: portfolio.github_link,
-        blogLink: portfolio.blog_link,
-        image: portfolio.image ? `${apiUrl}/uploads/${portfolio.image}` : null,
-        skills: portfolio.portfolioSkills.map((skill: any) => skill.skill_id),
-        // eslint-disable-next-line no-underscore-dangle
-        projects: portfolio.__projects__.map((project: any) => ({
-          id: project.id,
-          name: project.name,
-          description: project.description,
-          githubLink: project.github_link,
-          siteLink: project.site_link,
-          startDate: project.start_date ? project.start_date.split('-').slice(0, 2).join('-') : '',
-          endDate: project.end_date ? project.end_date.split('-').slice(0, 2).join('-') : '',
-          image: project.image ? `${apiUrl}/uploads/${project.image}` : null,
-          readmeFile: project.readme_file ? `${apiUrl}/uploads/${project.readme_file}` : null,
-          skills: project.projectSkills.map((skill: any) => skill.skill_id),
-        })),
-      })
-    } else {
-      console.error('포트폴리오 불러오기 실패:', res.message)
-    }
+  const reduxSkills = useSelector((state: RootState) => state.skill.skills)
+  const [categorizedSkill, setCategorizedSkill] = useState<any>(null)
+  const [categorizedProjectSkill, setCategorizedProjectSkill] = useState<any>([])
+  const [projectModalOpen, setProjectModalOpen] = useState(false)
+  const [selectedProjectMdFile, setSelectedProjectMdFile] = useState('')
+  const closeProjectModal = () => {
+    setProjectModalOpen(false)
   }
-
-  const getUserData = async () => {
-    const token = localStorage.getItem('token')
-    if (!token && !isPublic) {
-      console.error('토큰이 만료되었습니다.')
-      router.push('/')
-      throw new Error('Token not found')
-    }
-
-    const url = isPublic ? `${apiUrl}/api/user/public/${username}` : `${apiUrl}/api/user`
-    const headers: Record<string, string> = {}
-    if (!isPublic) {
-      headers.Authorization = `Bearer ${token}`
-    }
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers,
-    })
-
-    const res = await response.json()
-    if (response.status === 401) {
-      console.error('토큰이 만료되었습니다.')
-      localStorage.removeItem('token')
-      router.push('/')
-    }
-
-    if (response.ok) {
-      const user = res.data
-      setUserData({
-        name: user.name,
-        email: user.email,
-        birthdate: user.birthdate,
-      })
-    } else {
-      console.error('포트폴리오 불러오기 실패:', res.message)
-    }
+  const openProjectModal = () => {
+    setProjectModalOpen(true)
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getPortfolioData()
-      await getUserData()
-    }
-    fetchData()
-  }, [])
 
   useEffect(() => {
     if (portfolioData) {

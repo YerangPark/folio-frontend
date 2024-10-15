@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Box, Divider } from '@chakra-ui/react'
-import { Project } from '@/types/data'
+import { ProjectInputProps } from '@/types/data'
 import { useRouter } from 'next/navigation'
 import DashboardNavBar from '../organisms/DashboardNavBar'
 import { Heading } from '../atoms/Text'
@@ -38,7 +38,7 @@ const PortfolioFormPage: React.FC<PortfolioFormPageProps> = ({ id }) => {
   const [selectedTechStack, setSelectedTechStack] = useState<number[]>([])
 
   // Project Page States
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<ProjectInputProps[]>([])
 
   const checkRequiredFields = () => {
     const missingFields: string[] = []
