@@ -25,7 +25,7 @@ const InputImage: React.FC<InputImageProps> = ({ formLabel, image, alt, onImageC
   return (
     <FormControl mb={4}>
       <Box display="flex" alignItems="center">
-        <FormLabel mb="0" width="150px">
+        <FormLabel mb="0" width={[110, 130, 150]}>
           {formLabel}
         </FormLabel>
         <Box display="flex" alignItems="center">
@@ -33,7 +33,7 @@ const InputImage: React.FC<InputImageProps> = ({ formLabel, image, alt, onImageC
             <Image
               src={image instanceof File ? URL.createObjectURL(image) : image} // 파일 객체를 URL로 변환하여 이미지 미리보기
               alt={alt}
-              boxSize="150px"
+              boxSize={[100, 130, 150]}
               mr={4}
             />
           )}

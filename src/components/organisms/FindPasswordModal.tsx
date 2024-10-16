@@ -14,6 +14,7 @@ import {
   AlertIcon,
   AlertTitle,
   keyframes,
+  Spinner,
 } from '@chakra-ui/react'
 import { useState, ChangeEvent } from 'react'
 import Button from '../molecules/DefaultButton'
@@ -47,6 +48,7 @@ const FindPasswordModal: React.FC<FindPasswordModalProps> = ({ isOpen, onClose, 
   const [resultMessage, setResultMessage] = useState<string | null>(null)
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
   const [shakeKey, setShakeKey] = useState<number>(0)
+  const [loading, setLoading] = useState(false)
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -59,6 +61,7 @@ const FindPasswordModal: React.FC<FindPasswordModalProps> = ({ isOpen, onClose, 
   const handleSubmit = async () => {
     try {
       // 서버에 아이디와 이메일 전송 요청
+      setLoading(true)
       const response = await fetch(`${apiUrl}/api/user/find-pw`, {
         method: 'POST',
         headers: {
@@ -81,6 +84,8 @@ const FindPasswordModal: React.FC<FindPasswordModalProps> = ({ isOpen, onClose, 
       setIsSuccess(false)
       setResultMessage('일치하는 정보가 없습니다.')
       setShakeKey((prev) => prev + 1)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -115,7 +120,8 @@ const FindPasswordModal: React.FC<FindPasswordModalProps> = ({ isOpen, onClose, 
               <Input type="email" placeholder="이메일 입력" value={email} onChange={handleChangeEmail} />
             </FormControl>
 
-            <Button width="100%" onClick={handleSubmit} label="비밀번호 찾기" />
+            {loading ? <Spinner size="lg" /> : <Button width="100%" onClick={handleSubmit} label="비밀번호 찾기" />}
+
             {resultMessage && (
               <Alert status={isSuccess ? 'success' : 'error'} animation={`${shake} 0.5s`} key={shakeKey}>
                 <AlertIcon />

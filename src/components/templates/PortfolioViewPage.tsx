@@ -115,15 +115,23 @@ const PortfolioViewPage: React.FC<PortfolioViewPageProps> = ({ portfolioData, us
         </Heading>
         <VStack gap={8}>
           {portfolioData.projects.map((project: any, index: number) => (
-            <Box w="90%" borderWidth="1px" borderRadius="md" p={4} bg="white" shadow="md" key={project.id}>
-              <Flex>
-                <Box w="50%">
+            <Box
+              w={['90%', '70%', '70%']}
+              borderWidth="1px"
+              borderRadius="md"
+              p={4}
+              bg="white"
+              shadow="md"
+              key={project.id}
+            >
+              <Heading fontSize="xl" my={[3, 5, 5]}>
+                {project.name}
+              </Heading>
+              <Flex direction={['column', 'row']}>
+                <Box w={['100%', '50%']}>
                   <Image src={project.image} alt={project.name} mb={4} />
                 </Box>
-                <Box w="50%">
-                  <Heading fontSize="xl" my={10}>
-                    {project.name}
-                  </Heading>
+                <Box w={['100%', '50%', '50%']}>
                   <Text mb={10} textAlign="left">
                     {project.description}
                   </Text>
@@ -134,7 +142,7 @@ const PortfolioViewPage: React.FC<PortfolioViewPageProps> = ({ portfolioData, us
                     skills={categorizedProjectSkill[index]}
                   />
                   {project.readmeFile && (
-                    <Box w="100%" marginRight="auto">
+                    <Box w={['100%', '50%', '50%']} marginRight="auto">
                       <Button
                         onClick={() => {
                           setSelectedProjectMdFile(project.readmeFile)

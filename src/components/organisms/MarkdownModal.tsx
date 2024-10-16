@@ -26,7 +26,6 @@ const fetchMarkdownContent = async (mdFilePath: string): Promise<string> => {
 const MarkdownModal: React.FC<MarkdownModalProps> = ({ isOpen, onClose, mdFilePath }) => {
   const [markdownContent, setMarkdownContent] = useState<string>('')
 
-  console.log(`mdFilePath : ${mdFilePath}`)
   // .md 파일 읽어오기
   useEffect(() => {
     if (isOpen && mdFilePath) {

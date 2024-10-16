@@ -21,7 +21,7 @@ const InputDateRange: React.FC<DateRangeInputProps> = ({
   return (
     <FormControl mb={4}>
       <Flex align="center">
-        <FormLabel mb="0" width="150px">
+        <FormLabel mb="0" width={[110, 130, 150]}>
           {formLabel}
         </FormLabel>
         <Input

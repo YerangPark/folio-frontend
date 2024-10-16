@@ -215,7 +215,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
 
           <Box mb={4}>
             <Flex align="center">
-              <FormLabel mb="0" width="150px" />
+              <FormLabel mb="0" width={[110, 130, 150]} />
               {searchQuery &&
                 (searchResults.length > 0 ? (
                   <List spacing={2} borderWidth="1px" borderRadius="md" p={4} width="100" flex="1">
@@ -239,7 +239,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
 
           <FormControl mb={4}>
             <Flex align="center">
-              <FormLabel mb="0" width="150px" />
+              <FormLabel mb="0" width={[110, 130, 150]} />
               <Box
                 borderWidth="1px"
                 borderRadius="md"
