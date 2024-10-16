@@ -46,14 +46,14 @@ const PortfolioViewPage: React.FC<PortfolioViewPageProps> = ({ portfolioData, us
   }
 
   useEffect(() => {
-    if (portfolioData) {
+    if (portfolioData && reduxSkills) {
       setCategorizedSkill(groupPortfolioSkillsByCategory(portfolioData.skills, reduxSkills))
       const tmp = portfolioData.projects.map((project: any) =>
         groupPortfolioSkillsByCategory(project.skills, reduxSkills),
       )
       setCategorizedProjectSkill(tmp)
     }
-  }, [portfolioData])
+  }, [portfolioData, reduxSkills]) // portfolioData나 reduxSkills가 변경될 때만 실행
 
   if (!portfolioData) {
     return <Text>Loading...</Text>

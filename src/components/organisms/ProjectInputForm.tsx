@@ -159,7 +159,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             onImageChange={(image) =>
               setProjects((prev) => prev.map((p) => (p.id === project.id ? { ...p, image } : p)))
             }
-            buttonLabel="대표 사진 추가"
+            buttonLabel="사진 추가"
           />
           <InputDateRange
             formLabel="진행 기간*"
@@ -198,7 +198,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
           />
           <FormControl mb={4}>
             <InputGroup>
-              <FormLabel mb="0" width="150px">
+              <FormLabel mb="0" width={[110, 130, 150]}>
                 사용 기술 스택
               </FormLabel>
               <Input
