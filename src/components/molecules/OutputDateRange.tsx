@@ -10,13 +10,13 @@ interface DateRangeInputProps {
 const OutputDateRange: React.FC<DateRangeInputProps> = ({ formLabel, startDate, endDate }) => {
   return (
     <Box mb={4}>
-      <Flex align="center">
-        <Text mb="0" width="150px" fontWeight="bold" align="left">
+      <Flex align="center" fontSize={['sm', 'md', 'lg']}>
+        <Text mb="0" width={[130, 140, 150]} fontWeight="bold" align="left">
           {formLabel}
         </Text>
-        <Text>{startDate}</Text>
-        <Text>~</Text>
-        <Text>{endDate}</Text>
+        <Text fontSize={['sm', 'md', 'lg']}>
+          {startDate} ~ {endDate}
+        </Text>
       </Flex>
     </Box>
   )

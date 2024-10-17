@@ -16,6 +16,7 @@ export default async function Page({ params }: { params: { username: string; id:
     const response = await fetch(url, {
       method: 'GET',
       headers,
+      cache: 'no-store',
     })
 
     const res = await response.json()
@@ -57,6 +58,7 @@ export default async function Page({ params }: { params: { username: string; id:
     const response = await fetch(url, {
       method: 'GET',
       headers,
+      cache: 'no-store',
     })
 
     const res = await response.json()
