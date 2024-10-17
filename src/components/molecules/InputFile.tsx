@@ -4,7 +4,7 @@ import { FiFilePlus } from 'react-icons/fi'
 
 interface InputFileProps {
   formLabel: string
-  placeholder: string
+  placeholder?: string
   onFileChange: (file: File | null) => void
   allowedExtensions: string[] // 허용된 파일 확장자
 }
@@ -30,7 +30,7 @@ const InputFile: React.FC<InputFileProps> = ({ formLabel, placeholder, onFileCha
   return (
     <FormControl mb={4}>
       <Flex align="center">
-        <FormLabel mb="0" width="150px">
+        <FormLabel mb="0" width={[110, 130, 150]}>
           {formLabel}
         </FormLabel>
         <InputGroup width="100%" flex="1">

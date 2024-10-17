@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Box, Divider } from '@chakra-ui/react'
-import { Project } from '@/types/data'
+import { Box, Divider, Spinner } from '@chakra-ui/react'
+import { ProjectInputProps } from '@/types/data'
 import { useRouter } from 'next/navigation'
 import DashboardNavBar from '../organisms/DashboardNavBar'
 import { Heading } from '../atoms/Text'
@@ -36,9 +36,10 @@ const PortfolioFormPage: React.FC<PortfolioFormPageProps> = ({ id }) => {
   const [githubLink, setGithubLink] = useState('')
   const [blogLink, setBlogLink] = useState('')
   const [selectedTechStack, setSelectedTechStack] = useState<number[]>([])
+  const [loading, setLoading] = useState(false)
 
   // Project Page States
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<ProjectInputProps[]>([])
 
   const checkRequiredFields = () => {
     const missingFields: string[] = []
@@ -113,26 +114,31 @@ const PortfolioFormPage: React.FC<PortfolioFormPageProps> = ({ id }) => {
   }
 
   const updatePortfolio = async (token: any, formData: any) => {
-    const response = await fetch(`${apiUrl}/api/portfolio/${id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    })
+    try {
+      setLoading(true)
+      const response = await fetch(`${apiUrl}/api/portfolio/${id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      })
 
-    const res = await response.json()
-    if (response.status === 401) {
-      console.error('토큰이 만료되었습니다.')
-      localStorage.removeItem('token')
-      router.push('/')
-    }
+      const res = await response.json()
+      if (response.status === 401) {
+        console.error('토큰이 만료되었습니다.')
+        localStorage.removeItem('token')
+        router.push('/')
+      }
 
-    if (response.ok) {
-      console.log('포트폴리오 저장 성공:', res)
-      router.push('/dashboard')
-    } else {
-      console.error('포트폴리오 저장 실패:', res.message)
+      if (response.ok) {
+        console.log('포트폴리오 저장 성공:', res)
+        router.push('/dashboard')
+      } else {
+        console.error('포트폴리오 저장 실패:', res.message)
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -230,9 +236,25 @@ const PortfolioFormPage: React.FC<PortfolioFormPageProps> = ({ id }) => {
 
   return (
     <div>
+      {loading && (
+        <Box
+          position="fixed"
+          top="0"
+          left="0"
+          width="100vw"
+          height="100vh"
+          backgroundColor="rgba(0, 0, 0, 0.5)"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          zIndex="9999"
+        >
+          <Spinner size="xl" color="white" />
+        </Box>
+      )}
       <DashboardNavBar />
       <hr />
-      <Box mx="10" mt="5">
+      <Box mx={[3, 7, 10]} mt="5">
         {isEditMode ? (
           <Heading content="포트폴리오 수정" fontSize="2xl" color="brand.text1" />
         ) : (

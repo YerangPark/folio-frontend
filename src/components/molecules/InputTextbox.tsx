@@ -12,7 +12,7 @@ const InputTextbox: React.FC<InputTextBoxProps> = ({ formLabel, placeHolder, val
   return (
     <FormControl mb={4}>
       <Flex align="center">
-        <FormLabel mb="0" width="150px">
+        <FormLabel mb="0" width={[110, 130, 150]} fontSize="base">
           {formLabel}
         </FormLabel>
         <Input

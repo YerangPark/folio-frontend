@@ -10,8 +10,8 @@ export interface ButtonProps {
   borderRadius?: string | number
   size?: ResponsiveValue<string>
   fontSize?: ResponsiveValue<string>
-  px?: number | string
-  py?: number | string
+  px?: number | string | (number | string)[]
+  py?: number | string | (number | string)[]
   fontWeight?: string
   mr?: number | string
   width?: string | number
@@ -37,7 +37,7 @@ export interface InputProps {
 
 export interface TextProps {
   content: string
-  fontSize?: string
+  fontSize?: string | (number | string)[]
   color?: string
   fontWeight?: string
   mt?: number | string // margin-top

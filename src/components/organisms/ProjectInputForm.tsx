@@ -21,7 +21,7 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { FiPlus, FiDelete } from 'react-icons/fi'
-import { Skill, Project } from '@/types/data'
+import { Skill, ProjectInputProps } from '@/types/data'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { FaSearch } from 'react-icons/fa'
@@ -32,8 +32,8 @@ import InputDateRange from '../molecules/InputDateRange'
 import InputFile from '../molecules/InputFile'
 
 interface ProjectInputFormProps {
-  projects: Project[]
-  setProjects: React.Dispatch<React.SetStateAction<Project[]>>
+  projects: ProjectInputProps[]
+  setProjects: React.Dispatch<React.SetStateAction<ProjectInputProps[]>>
 }
 
 const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjects }) => {
@@ -75,7 +75,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
   }
 
   const handleAddProject = () => {
-    const newProject: Project = {
+    const newProject: ProjectInputProps = {
       id: projects.length + 1,
       name: '',
       description: '',
@@ -159,7 +159,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             onImageChange={(image) =>
               setProjects((prev) => prev.map((p) => (p.id === project.id ? { ...p, image } : p)))
             }
-            buttonLabel="대표 사진 추가"
+            buttonLabel="사진 추가"
           />
           <InputDateRange
             formLabel="진행 기간*"
@@ -198,7 +198,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
           />
           <FormControl mb={4}>
             <InputGroup>
-              <FormLabel mb="0" width="150px">
+              <FormLabel mb="0" width={[110, 130, 150]}>
                 사용 기술 스택
               </FormLabel>
               <Input
@@ -215,7 +215,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
 
           <Box mb={4}>
             <Flex align="center">
-              <FormLabel mb="0" width="150px" />
+              <FormLabel mb="0" width={[110, 130, 150]} />
               {searchQuery &&
                 (searchResults.length > 0 ? (
                   <List spacing={2} borderWidth="1px" borderRadius="md" p={4} width="100" flex="1">
@@ -239,7 +239,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
 
           <FormControl mb={4}>
             <Flex align="center">
-              <FormLabel mb="0" width="150px" />
+              <FormLabel mb="0" width={[110, 130, 150]} />
               <Box
                 borderWidth="1px"
                 borderRadius="md"

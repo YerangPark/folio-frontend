@@ -12,7 +12,6 @@ import {
   WrapItem,
   TagLabel,
   TagCloseButton,
-  HStack,
   InputGroup,
   InputRightElement,
   Icon,
@@ -130,7 +129,7 @@ const PortfolioInputForm: React.FC<PortfolioInputFormProps> = ({
   }
 
   return (
-    <Box px={8}>
+    <Box px={[2, 4, 8]}>
       {/* 기본 설정 */}
       <Text fontSize="xl" fontWeight="bold" mt={3}>
         기본 설정
@@ -156,7 +155,7 @@ const PortfolioInputForm: React.FC<PortfolioInputFormProps> = ({
         image={image}
         alt="대표 사진 미리보기"
         onImageChange={setImage}
-        buttonLabel="대표 사진 추가"
+        buttonLabel="사진 추가"
       />
       {/* 임베드 링크 */}
       <Text fontSize="xl" fontWeight="bold" mt={20}>
@@ -189,7 +188,7 @@ const PortfolioInputForm: React.FC<PortfolioInputFormProps> = ({
       </InformationBox>
 
       {/* 기술 스택 popular */}
-      <HStack spacing={4} mb={4}>
+      <Wrap spacing={4} mb={4}>
         {popularSkills.map((skill) => {
           const isSelected = selectedTechStack.includes(skill.id)
           return (
@@ -202,12 +201,15 @@ const PortfolioInputForm: React.FC<PortfolioInputFormProps> = ({
               onClick={() => handleSkillClick(skill.id)}
               rightIcon={isSelected ? <FiCheck /> : <FiPlus />}
               fontWeight="normal"
+              whiteSpace="nowrap"
+              width="auto"
+              px={[3, 4, 5]}
             >
               {skill.name}
             </Button>
           )
         })}
-      </HStack>
+      </Wrap>
 
       {/* 기술 스택 검색 */}
       <FormControl mb={4}>

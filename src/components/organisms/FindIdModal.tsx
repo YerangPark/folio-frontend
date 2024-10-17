@@ -14,6 +14,7 @@ import {
   AlertIcon,
   AlertTitle,
   keyframes,
+  Spinner,
 } from '@chakra-ui/react'
 import { useState, ChangeEvent } from 'react'
 import Button from '../molecules/DefaultButton'
@@ -46,6 +47,7 @@ const FindIdModal: React.FC<FindIdModalProps> = ({ isOpen, onClose, openLoginMod
   const [resultMessage, setResultMessage] = useState<string | null>(null)
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
   const [shakeKey, setShakeKey] = useState<number>(0)
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -54,6 +56,7 @@ const FindIdModal: React.FC<FindIdModalProps> = ({ isOpen, onClose, openLoginMod
   const handleSubmit = async () => {
     try {
       // 서버에 이메일 전송 요청
+      setLoading(true)
       const response = await fetch(`${apiUrl}/api/user/find-id`, {
         method: 'POST',
         headers: {
@@ -76,6 +79,8 @@ const FindIdModal: React.FC<FindIdModalProps> = ({ isOpen, onClose, openLoginMod
       setIsSuccess(false)
       setResultMessage('일치하는 정보가 없습니다.')
       setShakeKey((prev) => prev + 1)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -99,7 +104,7 @@ const FindIdModal: React.FC<FindIdModalProps> = ({ isOpen, onClose, openLoginMod
               <Input type="email" placeholder="이메일 입력" value={email} onChange={handleChange} />
             </FormControl>
 
-            <Button width="100%" onClick={handleSubmit} label="아이디 찾기" />
+            {loading ? <Spinner size="lg" /> : <Button width="100%" onClick={handleSubmit} label="아이디 찾기" />}
             {resultMessage && (
               <Alert status={isSuccess ? 'success' : 'error'} animation={`${shake} 0.5s`} key={shakeKey}>
                 <AlertIcon />

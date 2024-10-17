@@ -8,8 +8,8 @@ interface DefaultButtonProps {
   color: string
   size?: ResponsiveValue<string>
   fontSize?: ResponsiveValue<string> // fontSize를 추가
-  px?: number | string // 커스텀 padding-x
-  py?: number | string // 커스텀 padding-y
+  px?: number | string | (number | string)[] // 커스텀 padding-x
+  py?: number | string | (number | string)[] // 커스텀 padding-y
   fontWeight?: string
 }
 

@@ -6,8 +6,8 @@ interface BlurryImageProps {
   src: string
   alt: string
   overlayOpacity?: number
-  width?: string | number
-  height?: string | number
+  width?: string | number | (string | number)[]
+  height?: string | number | (string | number)[]
 }
 
 const BlurryImage: React.FC<BlurryImageProps> = ({

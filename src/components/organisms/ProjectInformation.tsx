@@ -17,7 +17,6 @@ const ProjectInformation: React.FC<ProjectInformationProps> = ({
   blogLink,
   skills,
 }) => {
-  console.log(skills)
   return (
     <>
       <OutputDateRange formLabel="> 개발 기간" startDate={startDate} endDate={endDate} />
@@ -28,7 +27,7 @@ const ProjectInformation: React.FC<ProjectInformationProps> = ({
         Object.entries(skills).map(([category, skillNames]) => (
           <Box key={category} mb={4}>
             <Flex align="center">
-              <Text mb="0" width="150px" fontWeight="bold" align="left">
+              <Text mb="0" width={[110, 130, 150]} fontWeight="bold" align="left">
                 {'>'} {category.charAt(0).toUpperCase() + category.slice(1)}
               </Text>
               <Flex wrap="wrap" gap={4} justify="flex-start">

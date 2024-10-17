@@ -60,14 +60,14 @@ const MainContents: React.FC<{ openSignupModal: () => void }> = ({ openSignupMod
           }}
           mt={index === 0 ? 0 : 150}
         >
-          <Heading content={content.heading1} fontSize="4xl" color="brand.text1" />
-          <Heading content={content.heading2} fontSize="4xl" color="brand.text1" />
+          <Heading content={content.heading1} fontSize={['2xl', '3xl', '4xl']} color="brand.text1" />
+          <Heading content={content.heading2} fontSize={['2xl', '3xl', '4xl']} color="brand.text1" />
           <Image src={content.image} alt={`example image ${index + 1}`} width="70%" mx="auto" />
         </Box>
       ))}
 
       <Box textAlign="center" mt={200}>
-        <Text fontSize="6xl" color="brand.text1" fontWeight="bold" mb={20}>
+        <Text fontSize={['3xl', '5xl', '6xl']} color="brand.text1" fontWeight="bold" mb={[15, 17, 20]}>
           <Text as="span" color="brand.primary1">
             나만의 포트폴리오
           </Text>
@@ -77,10 +77,10 @@ const MainContents: React.FC<{ openSignupModal: () => void }> = ({ openSignupMod
         <RoundButton
           label="포트폴리오 만들기"
           color="brand.primary1"
-          px={24}
-          py={8}
+          px={[8, 16, 24]}
+          py={[4, 6, 8]}
           fontWeight="bold"
-          fontSize="3xl"
+          fontSize={['xl', '2xl', '3xl']}
           onClick={openSignupModal}
         />
       </Box>
