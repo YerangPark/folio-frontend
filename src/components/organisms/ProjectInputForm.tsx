@@ -38,19 +38,25 @@ interface ProjectInputFormProps {
 
 const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjects }) => {
   const skills = useSelector((state: RootState) => state.skill.skills)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState<Skill[]>([])
+  const [searchQueries, setSearchQueries] = useState<string[]>(Array(projects.length).fill(''))
+  const [searchResults, setSearchResults] = useState<Skill[][]>(Array(projects.length).fill([]))
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value
-    setSearchQuery(query)
+    setSearchQueries((prev) => {
+      const newQueries = [...prev]
+      newQueries[index] = query
+      return newQueries
+    })
 
-    if (query) {
-      const results = skills.filter((skill) => skill.name.toLowerCase().includes(query.toLowerCase()))
-      setSearchResults(results)
-    } else {
-      setSearchResults([])
-    }
+    const results = query
+      ? skills.filter((skill) => skill.name.toLowerCase().includes(query.toLowerCase()))
+      : []
+    setSearchResults((prev) => {
+      const newResults = [...prev]
+      newResults[index] = results
+      return newResults
+    })
   }
 
   const handleTechStackSelect = (projectId: number, val: string | number) => {
@@ -75,8 +81,9 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
   }
 
   const handleAddProject = () => {
+    const maxId = projects.reduce((max, project) => (project.id > max ? project.id : max), 0);
     const newProject: ProjectInputProps = {
-      id: projects.length + 1,
+      id: maxId + 1,
       name: '',
       description: '',
       image: null,
@@ -87,7 +94,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
       selectedTechStack: [],
       readmeFile: null,
     }
-    setProjects([...projects, newProject])
+    setProjects((prev) => [...prev, newProject])
   }
 
   const handleRemoveProject = (projectId: number) => {
@@ -95,9 +102,21 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
     setProjects(tmpProjects)
   }
 
-  const handleFileChange = (projectId: number, file: File | null) => {
+  const handleFileChange = (projectId: number, readmeFile: File | null) => {
+    console.log(`projectId : ${projectId}`)
+    setProjects((prevProjects) => {
+      return prevProjects.map((project) =>
+        project.id === projectId ? { ...project, readmeFile } : project
+      )
+    })
+  }
+
+  const handleImageChange = (projectId: number, image: File | null) => {
+    console.log(`projectId : ${projectId}`)
     setProjects((prevProjects) =>
-      prevProjects.map((project) => (project.id === projectId ? { ...project, readmeFile: file } : project)),
+      prevProjects.map((project) =>
+        project.id === projectId ? { ...project, image } : project,
+      ),
     )
   }
 
@@ -128,7 +147,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
         프로젝트 추가
       </Button>
 
-      {projects.map((project) => (
+      {projects.map((project, index) => (
         <Box key={project.id}>
           <Divider my={2} />
           <Box display="flex" justifyContent="flex-end" mb={5}>
@@ -188,7 +207,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             }
           />
           <InputTextbox
-            formLabel="메인 설명"
+            formLabel="메인 설명*"
             placeHolder=""
             value={project.description}
             onChange={(value) =>
@@ -202,8 +221,8 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
               </FormLabel>
               <Input
                 placeholder="기술 스택을 검색해주세요"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
+                value={searchQueries[index] || ''}
+                onChange={(e) => handleSearchInputChange(index, e)}
                 flex="1"
               />
               <InputRightElement>
@@ -215,10 +234,10 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
           <Box mb={4}>
             <Flex align="center">
               <FormLabel mb="0" width={[110, 130, 150]} />
-              {searchQuery &&
-                (searchResults.length > 0 ? (
+              {searchQueries[index] &&
+                (searchResults[index].length > 0 ? (
                   <List spacing={2} borderWidth="1px" borderRadius="md" p={4} width="100" flex="1">
-                    {searchResults.map((skill) => (
+                    {searchResults[index].map((skill) => (
                       <ListItem
                         key={skill.id}
                         onClick={() => handleTechStackSelect(project.id, skill.id)}

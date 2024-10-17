@@ -10,7 +10,7 @@ const SkillCategories: React.FC<SkillCategoriesProps> = ({ skills }) => {
     return <Text>Loading...</Text>
   }
   return (
-    <Box width="full" textAlign="start" p={6} w="80%">
+    <Box width="full" textAlign="start" p={6} w={['90%', '70%', '70%']}>
       <VStack spacing={6} align="stretch">
         {/* 카테고리별로 반복 */}
         {Object.entries(skills).map(([category, skillNames]) => (
