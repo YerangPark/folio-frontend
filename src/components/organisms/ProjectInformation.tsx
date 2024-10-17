@@ -26,8 +26,8 @@ const ProjectInformation: React.FC<ProjectInformationProps> = ({
       {skills &&
         Object.entries(skills).map(([category, skillNames]) => (
           <Box key={category} mb={4}>
-            <Flex align="center">
-              <Text mb="0" width={[110, 130, 150]} fontWeight="bold" align="left">
+            <Flex align="center" fontSize={['sm', 'md', 'lg']}>
+              <Text mb="0" width={[130, 140, 150]} fontWeight="bold" align="left">
                 {'>'} {category.charAt(0).toUpperCase() + category.slice(1)}
               </Text>
               <Flex wrap="wrap" gap={4} justify="flex-start">

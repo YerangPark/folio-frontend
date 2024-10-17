@@ -72,7 +72,7 @@ const PortfolioViewPage: React.FC<PortfolioViewPageProps> = ({ portfolioData, us
         <Heading fontSize="4xl" mb={4}>
           ABOUT ME
         </Heading>
-        <Flex justify="center" gap={10} mb={6}>
+        <Flex justify="center" gap={10} mb={10} direction={['column', 'column', 'row']}>
           <VStack>
             <Text fontSize="sm">이름</Text>
             <Text fontWeight="bold">{userData.name}</Text>
@@ -124,7 +124,7 @@ const PortfolioViewPage: React.FC<PortfolioViewPageProps> = ({ portfolioData, us
               shadow="md"
               key={project.id}
             >
-              <Heading fontSize="xl" my={[3, 5, 5]}>
+              <Heading fontSize={['xl', '2xl', '2xl']} my={[3, 5, 10]}>
                 {project.name}
               </Heading>
               <Flex direction={['column', 'row']}>
