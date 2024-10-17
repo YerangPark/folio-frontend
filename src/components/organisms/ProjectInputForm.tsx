@@ -49,9 +49,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
       return newQueries
     })
 
-    const results = query
-      ? skills.filter((skill) => skill.name.toLowerCase().includes(query.toLowerCase()))
-      : []
+    const results = query ? skills.filter((skill) => skill.name.toLowerCase().includes(query.toLowerCase())) : []
     setSearchResults((prev) => {
       const newResults = [...prev]
       newResults[index] = results
@@ -81,7 +79,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
   }
 
   const handleAddProject = () => {
-    const maxId = projects.reduce((max, project) => (project.id > max ? project.id : max), 0);
+    const maxId = projects.reduce((max, project) => (project.id > max ? project.id : max), 0)
     const newProject: ProjectInputProps = {
       id: maxId + 1,
       name: '',
@@ -104,19 +102,15 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
 
   const handleFileChange = (projectId: number, readmeFile: File | null) => {
     console.log(`projectId : ${projectId}`)
-    setProjects((prevProjects) => {
-      return prevProjects.map((project) =>
-        project.id === projectId ? { ...project, readmeFile } : project
-      )
-    })
+    setProjects((prevProjects) =>
+      prevProjects.map((project) => (project.id === projectId ? { ...project, readmeFile } : project)),
+    )
   }
 
   const handleImageChange = (projectId: number, image: File | null) => {
     console.log(`projectId : ${projectId}`)
     setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.id === projectId ? { ...project, image } : project,
-      ),
+      prevProjects.map((project) => (project.id === projectId ? { ...project, image } : project)),
     )
   }
 
@@ -176,7 +170,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             key={project.id}
             image={project.image}
             alt="대표 사진 미리보기"
-            onImageChange={(image : File | null) => handleImageChange(project.id, image)}
+            onImageChange={(image: File | null) => handleImageChange(project.id, image)}
             buttonLabel="사진 추가"
           />
           <InputDateRange
