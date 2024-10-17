@@ -135,17 +135,22 @@ const DashboardPage: React.FC = () => {
             handleExport={(portfolioId) => {
               const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://yrpark.duckdns.org'
               const publicUrl = `${baseUrl}/${username}/${portfolioId}`
-              navigator.clipboard
-                .writeText(publicUrl)
-                .then(() => {
-                  setNotificationMessage('내보내기 링크가 복사되었습니다.')
-                  setShowNotification(true)
-                })
-                .catch((err) => {
-                  console.error('링크 복사 중 오류가 발생했습니다:', err)
-                  setNotificationMessage('링크 복사 중 오류가 발생했습니다.')
-                  setShowNotification(true)
-                })
+
+              const tempInput = document.createElement('input')
+              tempInput.value = publicUrl
+              document.body.appendChild(tempInput)
+              tempInput.select()
+
+              try {
+                document.execCommand('copy')
+                setNotificationMessage('내보내기 링크가 복사되었습니다.')
+              } catch (err) {
+                console.error('링크 복사 중 오류가 발생했습니다:', err)
+                setNotificationMessage('링크 복사 중 오류가 발생했습니다.')
+              }
+
+              document.body.removeChild(tempInput)
+              setShowNotification(true)
             }}
           />
         ) : (
