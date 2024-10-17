@@ -154,11 +154,10 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
           />
           <InputImage
             formLabel="대표 사진"
-            image={project.image} // base64로 변환된 이미지를 받게 됨
+            key={project.id}
+            image={project.image}
             alt="대표 사진 미리보기"
-            onImageChange={(image) =>
-              setProjects((prev) => prev.map((p) => (p.id === project.id ? { ...p, image } : p)))
-            }
+            onImageChange={(image : File | null) => handleImageChange(project.id, image)}
             buttonLabel="사진 추가"
           />
           <InputDateRange
