@@ -1,7 +1,7 @@
 # 🗂️ Folio
 
 
-<img src="https://github.com/user-attachments/assets/4ac774a1-74d7-47fb-b7f3-c3ae603fbc67" width="600" />
+<img src="https://github.com/user-attachments/assets/4ac774a1-74d7-47fb-b7f3-c3ae603fbc67" width="800" />
 
 > 개발자만을 위한 포트폴리오 제작 사이트 👉 [클릭](http://yrpark.duckdns.org/)
 
@@ -25,29 +25,29 @@
 
 ## ⭐ Main Feature
 ### 포트폴리오 생성 / 수정
-<img src="https://github.com/user-attachments/assets/2051a6e6-acda-4752-9621-8597b90506d9" width="600" />
-<img src="https://github.com/user-attachments/assets/a87e1984-e7af-491b-8ec0-e495de570165" width="600" />
+<img src="https://github.com/user-attachments/assets/2051a6e6-acda-4752-9621-8597b90506d9" width="800" />
+<img src="https://github.com/user-attachments/assets/a87e1984-e7af-491b-8ec0-e495de570165" width="800" />
 
 ### 포트폴리오 결과물
 포트폴리오 내보내기를 통해 링크가 클립보드에 복사됩니다. 프로젝트 명세 작성 시 첨부한 md 파일은 자세히 보기 버튼을 통해 확인할 수 있습니다.
 
 결과물은 다음 링크에서 확인해보세요. 👉 [클릭](http://yrpark.duckdns.org/test/3)
 
-<img src="https://github.com/user-attachments/assets/913fd259-6cec-40d0-b1d0-d61528372fc5" width="600" />
-<img src="https://github.com/user-attachments/assets/f98d8c0a-d52a-4fcf-9e3a-ff7aceba337a" width="600" />
+<img src="https://github.com/user-attachments/assets/913fd259-6cec-40d0-b1d0-d61528372fc5" width="800" />
+<img src="https://github.com/user-attachments/assets/f98d8c0a-d52a-4fcf-9e3a-ff7aceba337a" width="800" />
 
 ### 회원가입 및 로그인
-<img src="https://github.com/user-attachments/assets/f3977220-0535-47b6-a858-aa82cd755ff5" width="600" />
+<img src="https://github.com/user-attachments/assets/f3977220-0535-47b6-a858-aa82cd755ff5" width="800" />
 
 JWT 토큰을 이용하였습니다. 비밀번호는 단방향 암호화로 구현하였습니다.
 
 ### 아이디 찾기, 비밀번호 찾기
 회원가입 시 입력한 이메일로 아이디를 찾고, 임시 비밀번호를 발급하도록 구현하였습니다.
 
-<img src="https://github.com/user-attachments/assets/4bc60607-8f39-4502-b2c2-8684e514432c" width="400" />
+<img src="https://github.com/user-attachments/assets/4bc60607-8f39-4502-b2c2-8684e514432c" width="500" />
 
 ### 개인정보 수정
-<img src="https://github.com/user-attachments/assets/6a067a92-ab56-4f49-af95-1bcd56c506f1" width="600" />
+<img src="https://github.com/user-attachments/assets/6a067a92-ab56-4f49-af95-1bcd56c506f1" width="800" />
 
 ### 반응형 UI
 
