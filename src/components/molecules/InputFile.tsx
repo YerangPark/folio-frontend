@@ -27,6 +27,8 @@ const InputFile: React.FC<InputFileProps> = ({ formLabel, placeholder, onFileCha
     }
   }
 
+  const uniqueId = `file-upload-${Math.random().toString(36).substring(2, 9)}`
+
   return (
     <FormControl mb={4}>
       <Flex align="center">
@@ -45,7 +47,7 @@ const InputFile: React.FC<InputFileProps> = ({ formLabel, placeholder, onFileCha
           <InputRightElement width="5rem">
             <Button
               as="label"
-              htmlFor="file-upload"
+              htmlFor={uniqueId}
               leftIcon={<Icon as={FiFilePlus} />}
               size="sm"
               variant="outline"
@@ -53,7 +55,7 @@ const InputFile: React.FC<InputFileProps> = ({ formLabel, placeholder, onFileCha
             >
               추가
             </Button>
-            <Input id="file-upload" type="file" onChange={handleFileChange} hidden />
+            <Input id={uniqueId} type="file" onChange={handleFileChange} hidden />
           </InputRightElement>
         </InputGroup>
       </Flex>

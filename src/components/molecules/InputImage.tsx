@@ -21,6 +21,7 @@ const InputImage: React.FC<InputImageProps> = ({ formLabel, image, alt, onImageC
       onImageChange(null) // 파일이 없을 경우 null 전달
     }
   }
+  const uniqueId = `image-upload-${Math.random().toString(36).substring(2, 9)}`
 
   return (
     <FormControl mb={4}>
@@ -37,10 +38,10 @@ const InputImage: React.FC<InputImageProps> = ({ formLabel, image, alt, onImageC
               mr={4}
             />
           )}
-          <Button as="label" htmlFor="image-upload" variant="outline" mr={4}>
+          <Button as="label" htmlFor={uniqueId} variant="outline" mr={4}>
             {buttonLabel}
           </Button>
-          <Input type="file" id="image-upload" accept="image/*" hidden onChange={handleImageChange} />
+          <Input type="file" id={uniqueId} accept="image/*" hidden onChange={handleImageChange} />
           <Box>{fileName}</Box> {/* 업로드한 파일 이름 표시 */}
         </Box>
       </Box>
