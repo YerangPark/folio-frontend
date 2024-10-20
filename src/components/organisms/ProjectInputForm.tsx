@@ -164,6 +164,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             onChange={(value) =>
               setProjects((prev) => prev.map((p) => (p.id === project.id ? { ...p, name: value } : p)))
             }
+            maxLength={20}
           />
           <InputImage
             formLabel="대표 사진"
@@ -191,6 +192,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             onChange={(value) =>
               setProjects((prev) => prev.map((p) => (p.id === project.id ? { ...p, githubLink: value } : p)))
             }
+            maxLength={50}
           />
           <InputTextbox
             formLabel="사이트 URL"
@@ -199,6 +201,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             onChange={(value) =>
               setProjects((prev) => prev.map((p) => (p.id === project.id ? { ...p, siteLink: value } : p)))
             }
+            maxLength={50}
           />
           <InputTextbox
             formLabel="메인 설명*"
@@ -207,6 +210,7 @@ const ProjectInputForm: React.FC<ProjectInputFormProps> = ({ projects, setProjec
             onChange={(value) =>
               setProjects((prev) => prev.map((p) => (p.id === project.id ? { ...p, description: value } : p)))
             }
+            maxLength={300}
           />
           <FormControl mb={4}>
             <InputGroup>
