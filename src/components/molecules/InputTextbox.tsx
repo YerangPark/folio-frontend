@@ -4,7 +4,7 @@ interface InputTextBoxProps {
   formLabel: string
   placeHolder: string
   value: string
-  onChange: (arg: string) => void
+  onChange?: (arg: string) => void
   isDisabled?: boolean
   maxLength?: number
 }
