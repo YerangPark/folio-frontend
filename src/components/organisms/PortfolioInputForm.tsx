@@ -169,12 +169,14 @@ const PortfolioInputForm: React.FC<PortfolioInputFormProps> = ({
         placeHolder="깃허브 링크를 입력하세요"
         value={githubLink}
         onChange={setGithubLink}
+        maxLength={50}
       />
       <InputTextbox
         formLabel="블로그 링크"
         placeHolder="블로그 링크를 입력하세요"
         value={blogLink}
         onChange={setBlogLink}
+        maxLength={50}
       />
 
       {/* 기술 스택 */}
