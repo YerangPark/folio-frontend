@@ -1,11 +1,12 @@
 # 🗂️ Folio
 
 
-<img src="https://github.com/user-attachments/assets/4ac774a1-74d7-47fb-b7f3-c3ae603fbc67" width="800" />
-
 > 개발자만을 위한 포트폴리오 제작 사이트 👉 [클릭](http://yrpark.duckdns.org/)
 
 > 예시를 확인해보세요! 👉 [클릭](http://yrpark.duckdns.org/test/3)
+
+<img src="https://github.com/user-attachments/assets/4ac774a1-74d7-47fb-b7f3-c3ae603fbc67" width="800" />
+
 
 ## 🔨 Stack
 - **Frontend** : <img alt="Next.js" src ="https://img.shields.io/badge/Next.js-000000.svg?&style=for-the-badge&logo=Next.js&logoColor=white"/> <img alt="TypeScript" src ="https://img.shields.io/badge/TypeScript-3178C6.svg?&style=for-the-badge&logo=TypeScript&logoColor=white"/>
@@ -18,6 +19,14 @@
 
 - **Server**: <img alt="RaspberryPi" src ="https://img.shields.io/badge/raspberrypi-A22846.svg?&style=for-the-badge&logo=raspberrypi&logoColor=white"/> <img alt="Apache" src ="https://img.shields.io/badge/apache-D22128.svg?&style=for-the-badge&logo=apache&logoColor=white"/>
 
+### Frontend Specific
+
+- React
+- React Router
+- Next.js
+- TypeScript
+- Redux
+- Chakra UI
 
 ## 📖 Description
 
