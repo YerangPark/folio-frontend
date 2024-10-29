@@ -9,7 +9,7 @@
 
 
 ## 🔨 Stack
-- **Frontend** : <img alt="Next.js" src ="https://img.shields.io/badge/Next.js-000000.svg?&style=for-the-badge&logo=Next.js&logoColor=white"/> <img alt="TypeScript" src ="https://img.shields.io/badge/TypeScript-3178C6.svg?&style=for-the-badge&logo=TypeScript&logoColor=white"/>
+- **Frontend** : <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=white"/> <img alt="Next.js" src ="https://img.shields.io/badge/Next.js-000000.svg?&style=for-the-badge&logo=Next.js&logoColor=white"/> <img alt="TypeScript" src ="https://img.shields.io/badge/TypeScript-3178C6.svg?&style=for-the-badge&logo=TypeScript&logoColor=white"/> <img alt="React Router" src ="https://img.shields.io/badge/React Router-CA4245.svg?&style=for-the-badge&logo=React Router&logoColor=white"/> <img alt="Redux" src ="https://img.shields.io/badge/Redux-764ABC.svg?&style=for-the-badge&logo=Redux&logoColor=white"/> <img alt="Chakra UI" src ="https://img.shields.io/badge/Chakra UI-319795.svg?&style=for-the-badge&logo=Chakra UI&logoColor=white"/>
 
 - **Backend** : <img alt="Express" src ="https://img.shields.io/badge/Express-000000.svg?&style=for-the-badge&logo=Express&logoColor=white"/> <img alt="Node.js" src ="https://img.shields.io/badge/Node.js-5FA04E.svg?&style=for-the-badge&logo=Node.js&logoColor=white"/>
 
@@ -18,15 +18,6 @@
 - **CI/CD** : <img alt="Docker" src ="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="GithubActions" src ="https://img.shields.io/badge/githubactions-2088FF.svg?&style=for-the-badge&logo=githubactions&logoColor=white"/>
 
 - **Server**: <img alt="RaspberryPi" src ="https://img.shields.io/badge/raspberrypi-A22846.svg?&style=for-the-badge&logo=raspberrypi&logoColor=white"/> <img alt="Apache" src ="https://img.shields.io/badge/apache-D22128.svg?&style=for-the-badge&logo=apache&logoColor=white"/>
-
-### Frontend Specific
-
-- React
-- React Router
-- Next.js
-- TypeScript
-- Redux
-- Chakra UI
 
 ## 📖 Description
 
